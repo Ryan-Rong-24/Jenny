@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, Animated, Image } from 'react-native';
 
 interface ScoreDisplayProps {
   score: number | null;
@@ -81,7 +80,7 @@ export default function ScoreDisplay({ score, feedback }: ScoreDisplayProps) {
       
       {feedback && (
         <View style={styles.feedbackContainer}>
-          <Ionicons name="chatbubble-ellipses" size={20} color="#007AFF" />
+          <Image source={require('../assets/chat.png')} style={{ width: 20, height: 20, tintColor: '#007AFF' }} />
           <Text style={styles.feedback}>{feedback}</Text>
         </View>
       )}

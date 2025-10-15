@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView, StatusBar, Alert, Pressable, Text as RNText, Animated } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, View, SafeAreaView, ScrollView, StatusBar, Alert, Pressable, Text as RNText, Animated, ActivityIndicator, Image } from 'react-native';
 import Constants from 'expo-constants';
 import EmojiPrompt from './components/EmojiPrompt';
 import CameraCapture from './components/CameraCapture';
@@ -40,6 +39,8 @@ export default function App() {
       useNativeDriver: true,
     }).start();
   }, []);
+
+  // No blocking splash on font loading; icons use local assets instead
 
   const handleRefreshEmoji = () => {
     setCurrentEmoji(getRandomEmoji());
@@ -129,7 +130,7 @@ export default function App() {
             </View>
             {apiKeyError && (
               <View style={styles.errorBadge}>
-                <Ionicons name="warning" size={20} color="#FF3B30" />
+                <RNText style={{ color: '#FF3B30', fontSize: 16 }}>!</RNText>
               </View>
             )}
           </View>

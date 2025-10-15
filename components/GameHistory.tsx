@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Animated } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, ScrollView, Pressable, Animated, Image } from 'react-native';
 
 export interface GameRecord {
   id: string;
@@ -53,7 +52,7 @@ export default function GameHistory({ history, onClear }: GameHistoryProps) {
             onPressOut={handlePressOut}
             style={styles.clearButton}
           >
-            <Ionicons name="trash-outline" size={18} color="#FF3B30" />
+          <Image source={require('../assets/trash.png')} style={{ width: 18, height: 18, tintColor: '#FF3B30' }} />
           </Pressable>
         </Animated.View>
       </View>

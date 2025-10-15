@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Animated, Image, ActivityIndicator } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
 interface CameraCaptureProps {
@@ -85,7 +84,7 @@ export default function CameraCapture({ onCapture, isLoading, capturedImage }: C
         </View>
       ) : (
         <View style={styles.placeholderContainer}>
-          <Ionicons name="camera-outline" size={64} color="#ccc" />
+          <Image source={require('../assets/camera.png')} style={{ width: 64, height: 64, tintColor: '#ccc' }} />
           <Text style={styles.placeholderText}>Take a selfie to match the emoji!</Text>
         </View>
       )}
@@ -99,7 +98,7 @@ export default function CameraCapture({ onCapture, isLoading, capturedImage }: C
             onPressOut={handlePressOut}
             disabled={isLoading}
           >
-            <Ionicons name="camera" size={24} color="#fff" />
+            <Image source={require('../assets/camera.png')} style={{ width: 24, height: 24, tintColor: '#fff' }} />
             <Text style={styles.primaryButtonText}>Take Photo</Text>
           </Pressable>
         </Animated.View>
@@ -112,7 +111,7 @@ export default function CameraCapture({ onCapture, isLoading, capturedImage }: C
             onPressOut={handlePressOut}
             disabled={isLoading}
           >
-            <Ionicons name="images" size={24} color="#007AFF" />
+            <Image source={require('../assets/images.png')} style={{ width: 24, height: 24, tintColor: '#007AFF' }} />
             <Text style={styles.secondaryButtonText}>Gallery</Text>
           </Pressable>
         </Animated.View>

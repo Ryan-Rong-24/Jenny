@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, Pressable, Animated, Image } from 'react-native';
 
 interface EmojiPromptProps {
   emoji: string;
@@ -40,7 +39,7 @@ export default function EmojiPrompt({ emoji, emojiName, onRefresh }: EmojiPrompt
           onPressIn={handlePressIn}
           onPressOut={handlePressOut}
         >
-          <Ionicons name="refresh" size={20} color="#fff" />
+          <Image source={require('../assets/refresh.png')} style={{ width: 20, height: 20, tintColor: '#fff' }} />
           <Text style={styles.refreshButtonText}>New Emoji</Text>
         </Pressable>
       </Animated.View>
