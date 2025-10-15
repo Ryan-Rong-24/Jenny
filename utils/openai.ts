@@ -51,7 +51,7 @@ Please analyze their facial expression and give them:
 
 Be generous with scoring but honest! Make it fun and lighthearted.
 
-Respond in this EXACT JSON format:
+Respond in this EXACT JSON format and nothing else (no prose, no code fences):
 {
   "score": <number 0-100>,
   "feedback": "<your funny comment>"
@@ -67,20 +67,30 @@ Respond in this EXACT JSON format:
         },
       ],
       max_tokens: 300,
+      response_format: { type: "json_object" },
     });
 
-    const result = completion.choices[0].message.content;
+    const result = completion.choices[0].message.content?.trim();
     if (!result) {
       throw new Error('No response from OpenAI');
     }
 
-    // Parse the JSON response
-    const jsonMatch = result.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('Could not parse response');
+    // Parse JSON robustly (handles plain JSON, fenced blocks, or prose-wrapped)
+    let parsed: any;
+    try {
+      parsed = JSON.parse(result);
+    } catch {
+      const fenceMatch = result.match(/```json\s*([\s\S]*?)\s*```/i);
+      if (fenceMatch) {
+        parsed = JSON.parse(fenceMatch[1]);
+      } else {
+        const objectMatch = result.match(/\{[\s\S]*\}/);
+        if (!objectMatch) {
+          throw new Error('Could not parse response');
+        }
+        parsed = JSON.parse(objectMatch[0]);
+      }
     }
-
-    const parsed = JSON.parse(jsonMatch[0]);
     return {
       score: Math.min(100, Math.max(0, parsed.score)),
       feedback: parsed.feedback,
